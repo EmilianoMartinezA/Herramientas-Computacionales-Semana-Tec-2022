@@ -1,0 +1,58 @@
+/* Podemos observa que conforme usamos un aumento de threads dentro del codigo, su tiempo de ejecucion es mas inexacto
+asi como mas lento, sin embargo cuando se trabaja con cantidades inmensas de datos, se trabajan con multiples cores fisicos, en este caso depende de cuantos tenga
+nuestra maquina virtual o fisica, se verá reflejado el trabajo distribuido en este al momento de realizar el analisis de  HTOP para cada core de memoria
+*/
+#include<math.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<omp.h>
+#define N 1000
+
+int A[N][N];
+int B[N][N];
+int C[N][N];
+
+int main(int argc, char** argv){
+
+
+        int threads_num = 1;
+        if(argc > 1){
+                threads_num = atoi(argv[1]);
+}
+        omp_set_num_threads(threads_num);
+        printf("OMP defined, threadct = %d\n" , threads_num);
+        int i,j,k;
+        for (i= 0; i< N; i++)
+                for(j=0; j<N; j++){
+                        A[i][j] = 2;
+                        B[i][j] = 2;
+        }
+        #pragma omp parallel for private(i,j,k) shared(A,B,C)
+        for(i = 0; i < N; ++i) {
+                for(j = 0; j< N; ++j) {
+                        for(k = 0; k < N; ++k) {
+                                C[i][j] += A[i][k] * B[k][j];
+                                        }
+                                }
+                        }
+               
+        static void mulMat(int[, ] A, int[, ] B, int[, ] C) {
+                // To store result
+                int[, ] rslt = new int[N, N];
+                Console.WriteLine(
+                        "Multiplication of given two matrices is:");
+                int i, j, k;
+                for (i = 0; i < N; i++) {
+                        for (j = 0; j < N; j++) {
+                                rslt[i, j] = 0;
+                                for (k = 0; k < N; k++)
+                                        rslt[i, j] += A[i, k] * B[k, j];
+                                Console.Write(rslt[i, j] + "\t");
+                        }
+                        Console.WriteLine();
+                }
+        }
+
+}
+
+

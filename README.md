@@ -1,1 +1,2 @@
-# Herramientas-Computacionales-Semana-Tec-2022
+# semana-tec
+Repositorio para semana Tec
